@@ -1,38 +1,50 @@
-import { Member, CoreTeam } from "@/models/Member";
-import dbConnect from "@/lib/db";
+"use client";
+
+import { useState, useEffect } from "react";
 import styles from "./MembersSection.module.css";
 
-// 🚀 CRITICAL FIX FOR VERCEL:
-// Force Next.js to bypass the cache and run the DB query on every page load.
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
+/**
+ * Cloudinary Image Logic
+ * Same logic as your other sections to ensure images show up on Vercel
+ */
 const getImgSrc = (image) => {
   if (!image) return "/placeholder.png";
-
-  // Handle array if Cloudinary returns one
   const path = Array.isArray(image) ? image[0] : image;
-
   if (typeof path !== "string" || path.trim() === "") return "/placeholder.png";
 
-  // If it's a Cloudinary URL (starts with http), it works on Vercel.
-  // If it's local (e.g., assets/...), it works via the public folder.
-  if (path.startsWith("http") || path.startsWith("/")) return path;
-
-  return `/${path}`;
+  if (path.startsWith("http")) return path; // Cloudinary URL
+  return path.startsWith("/") ? path : `/${path}`; // Local Fallback
 };
 
-export default async function MembersSection() {
-  // Ensure DB connection is active for this request
-  await dbConnect();
+export default function MembersSection() {
+  const [members, setMembers] = useState([]);
+  const [coreGroups, setCoreGroups] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch data directly from MongoDB
-  const membersData = await Member.find().sort({ createdAt: -1 }).lean();
-  const groupsData = await CoreTeam.find().sort({ createdAt: -1 }).lean();
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // We fetch from your API routes just like Snippets does
+        const [memberRes, groupRes] = await Promise.all([
+          fetch("/api/members", { cache: "no-store" }),
+          fetch("/api/core-team", { cache: "no-store" }),
+        ]);
 
-  // Convert MongoDB _id to string to prevent hydration/serialization errors on Vercel
-  const members = JSON.parse(JSON.stringify(membersData));
-  const coreGroups = JSON.parse(JSON.stringify(groupsData));
+        const memberData = await memberRes.json();
+        const groupData = await groupRes.json();
+
+        if (memberData.success) setMembers(memberData.data);
+        if (groupData.success) setCoreGroups(groupData.data);
+      } catch (err) {
+        console.error("Failed to fetch members:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (loading) return <div className={styles.loading}>Loading Team...</div>;
 
   const organizers = members.filter(
     (m) => m.tier?.toLowerCase()?.trim() === "organizer",
@@ -54,26 +66,43 @@ export default async function MembersSection() {
         </h1>
       </div>
 
-      {/* Render Sections (Only if they have members) */}
-      {[
-        { label: "Organizer", data: organizers },
-        { label: "Domain Leads", data: leads },
-        { label: "Domain Co-Leads", data: coleads },
-      ].map(
-        (tier) =>
-          tier.data.length > 0 && (
-            <section key={tier.label} className={styles.tierSection}>
-              <div className={styles["tier-label"]}>{tier.label}</div>
-              <div className={styles["row-wrapper"]}>
-                {tier.data.map((m, i) => (
-                  <MemberCard key={m._id} member={m} index={i} />
-                ))}
-              </div>
-            </section>
-          ),
+      {/* Organizer Section */}
+      {organizers.length > 0 && (
+        <section>
+          <div className={styles["tier-label"]}>Organizer</div>
+          <div className={styles["row-wrapper"]}>
+            {organizers.map((m, i) => (
+              <MemberCard key={m._id} member={m} index={i} />
+            ))}
+          </div>
+        </section>
       )}
 
-      {/* Core Team Container */}
+      {/* Leads Section */}
+      {leads.length > 0 && (
+        <section>
+          <div className={styles["tier-label"]}>Domain Leads</div>
+          <div className={styles["row-wrapper"]}>
+            {leads.map((m, i) => (
+              <MemberCard key={m._id} member={m} index={i} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Co-Leads Section */}
+      {coleads.length > 0 && (
+        <section>
+          <div className={styles["tier-label"]}>Domain Co-Leads</div>
+          <div className={styles["row-wrapper"]}>
+            {coleads.map((m, i) => (
+              <MemberCard key={m._id} member={m} index={i} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Core Team Groups */}
       <div id="core-team-container">
         <div className={styles["tier-label"]}>Our Core Team</div>
         {coreGroups.map((group) => (
@@ -83,7 +112,6 @@ export default async function MembersSection() {
                 <img
                   src={getImgSrc(group.image || group.photo)}
                   alt={group.title}
-                  loading="lazy"
                 />
               </div>
               <div className={styles["group-info"]}>
