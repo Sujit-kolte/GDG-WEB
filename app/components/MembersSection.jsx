@@ -2,30 +2,27 @@ import { Member, CoreTeam } from "@/models/Member";
 import dbConnect from "@/lib/db";
 import styles from "./MembersSection.module.css";
 
-// Force Next.js to skip the cache and fetch fresh data from MongoDB
+// Forces fresh data fetch from MongoDB on every request in Vercel
 export const dynamic = "force-dynamic";
 
 const getImgSrc = (image) => {
   if (Array.isArray(image) && image.length > 0 && image[0]) return image[0];
   if (typeof image === "string" && image.trim() !== "") return image;
-  return null;
+  return null; // Prevents empty string console errors
 };
 
 export default async function MembersSection() {
   await dbConnect();
 
-  // Fetching data - dynamic rendering ensures these are fresh
   const members = await Member.find().sort({ createdAt: -1 }).lean();
   const coreGroups = await CoreTeam.find().sort({ createdAt: -1 }).lean();
 
-  // Helper to safely check tiers
-  const filterByTier = (tierName) =>
-    members.filter(
-      (m) => m.tier?.toLowerCase()?.trim() === tierName.toLowerCase(),
-    );
-
-  const organizers = filterByTier("organizer");
-  const leads = filterByTier("domain lead");
+  const organizers = members.filter(
+    (m) => m.tier?.toLowerCase()?.trim() === "organizer",
+  );
+  const leads = members.filter(
+    (m) => m.tier?.toLowerCase()?.trim() === "domain lead",
+  );
   const coleads = members.filter(
     (m) =>
       m.tier?.toLowerCase()?.trim() === "co-lead" ||
@@ -34,74 +31,56 @@ export default async function MembersSection() {
 
   return (
     <div className={styles.container}>
-      <div className={styles["section-header"]}>
-        <h1 className={styles["section-title"]}>
-          Meet The Core team of GDGCOE
-        </h1>
-      </div>
+      <h1 className={styles["section-title"]}>Meet The Core team of GDGCOE</h1>
 
-      {/* Organizer Section */}
-      {organizers.length > 0 && (
-        <section id="organizer-section">
-          <div className={styles["tier-label"]}>Organizer</div>
-          <div className={styles["row-wrapper"]}>
-            {organizers.map((m, i) => (
-              <MemberCard key={m._id.toString()} member={m} index={i} />
-            ))}
-          </div>
-        </section>
+      {/* Dynamic Member Rendering */}
+      {[organizers, leads, coleads].map(
+        (tier, idx) =>
+          tier.length > 0 && (
+            <section key={idx} className={styles["tier-wrapper"]}>
+              <div className={styles["tier-label"]}>
+                {idx === 0
+                  ? "Organizer"
+                  : idx === 1
+                    ? "Domain Leads"
+                    : "Domain Co-Leads"}
+              </div>
+              <div className={styles["row-wrapper"]}>
+                {tier.map((m, i) => (
+                  <MemberCard key={m._id.toString()} member={m} index={i} />
+                ))}
+              </div>
+            </section>
+          ),
       )}
 
-      {/* Leads Section */}
-      {leads.length > 0 && (
-        <section id="leads-section">
-          <div className={styles["tier-label"]}>Domain Leads</div>
-          <div className={styles["row-wrapper"]}>
-            {leads.map((m, i) => (
-              <MemberCard key={m._id.toString()} member={m} index={i} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Co-Leads Section */}
-      {coleads.length > 0 && (
-        <section id="coleads-section">
-          <div className={styles["tier-label"]}>Domain Co-Leads</div>
-          <div className={styles["row-wrapper"]}>
-            {coleads.map((m, i) => (
-              <MemberCard key={m._id.toString()} member={m} index={i} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Core Team Container */}
+      {/* Core Team Domains */}
       <div id="core-team-container">
         <div className={styles["tier-label"]}>Our Core Team</div>
-        {coreGroups.map((group) => {
-          const imgSrc = getImgSrc(group.image);
-          return (
-            <div
-              key={group._id.toString()}
-              className={styles["group-photo-container"]}>
-              <div className={styles["group-card"]}>
-                <div className={styles["group-image"]}>
-                  {imgSrc ? (
-                    <img src={imgSrc} alt={group.title} loading="lazy" />
-                  ) : (
-                    <div className={styles.placeholder}>No Group Image</div>
-                  )}
-                </div>
-                <div className={styles["group-info"]}>
-                  <h2>{group.title}</h2>
-                  <p>{group.subtitle}</p>
-                  <p className={styles.membersListText}>{group.membersList}</p>
-                </div>
+        {coreGroups.map((group) => (
+          <div
+            key={group._id.toString()}
+            className={styles["group-photo-container"]}>
+            <div className={styles["group-card"]}>
+              <div className={styles["group-image"]}>
+                {getImgSrc(group.image) ? (
+                  <img
+                    src={getImgSrc(group.image)}
+                    alt={group.title}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className={styles.placeholder}>No Image</div>
+                )}
+              </div>
+              <div className={styles["group-info"]}>
+                <h2>{group.title}</h2>
+                <p>{group.subtitle}</p>
+                <p className={styles.membersListText}>{group.membersList}</p>
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
   );
