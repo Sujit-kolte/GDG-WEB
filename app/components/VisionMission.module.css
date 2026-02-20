@@ -1,0 +1,229 @@
+/* VisionMission.module.css */
+
+.visionMission {
+  padding: 80px 10%;
+  background: transparent;
+  margin: 20px;
+  border-radius: 20px;
+  position: relative;
+}
+
+/* Header */
+.vmHeader {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.vmHeader h2 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.vmHeader p {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Wrapper (Staggered Layout) */
+.vmWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Card Base */
+.vmCard {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+
+  background: var(--bg-card);
+  padding: 30px;
+  border-radius: 20px;
+
+  border: 1px solid var(--border-card);
+  box-shadow: 0 4px 15px var(--shadow-md);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  opacity: 0;
+  transform: translateX(0);
+}
+
+/* When active (scroll reveal) */
+.vmCard.active {
+  opacity: 1;
+}
+
+/* Zig-Zag Staggering */
+.vmCard:nth-child(even) {
+  flex-direction: row-reverse;
+  margin-left: 50px;
+}
+
+.vmCard:nth-child(odd) {
+  margin-right: 50px;
+}
+
+/* Icon */
+.vmIcon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2rem;
+  flex-shrink: 0;
+
+  transition: transform 0.3s ease;
+}
+
+/* Text */
+.vmCard h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.7rem;
+  color: var(--text-primary);
+}
+
+.vmCard p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Hover */
+.vmCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.vmCard:hover .vmIcon {
+  transform: scale(1.1) rotate(10deg);
+}
+
+/* ---------------- THEME CARDS (Extracted CSS style) ---------------- */
+
+/* Vision */
+.vmCard.vision {
+  border-left: 5px solid var(--gdg-blue);
+}
+.vmCard.vision .vmIcon {
+  background: var(--vision-icon-bg);
+  color: var(--vision-icon-color);
+}
+.vmCard.vision h3 {
+  color: var(--vision-icon-color);
+}
+
+/* Mission */
+.vmCard.mission {
+  border-right: 5px solid var(--gdg-green);
+}
+.vmCard.mission .vmIcon {
+  background: var(--mission-icon-bg);
+  color: var(--mission-icon-color);
+}
+.vmCard.mission h3 {
+  color: var(--mission-icon-color);
+}
+
+/* Values */
+.vmCard.values {
+  border-left: 5px solid var(--gdg-red);
+}
+.vmCard.values .vmIcon {
+  background: var(--values-icon-bg);
+  color: var(--values-icon-color);
+}
+.vmCard.values h3 {
+  color: var(--values-icon-color);
+}
+
+/* ---------------- REVEAL ANIMATIONS ---------------- */
+
+.revealLeft {
+  transform: translateX(-30px);
+}
+
+.revealLeft.active {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.revealRight {
+  transform: translateX(30px);
+}
+
+.revealRight.active {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+
+@media (max-width: 768px) {
+  .visionMission {
+    padding: 60px 6%;
+    margin: 10px;
+  }
+
+  .vmHeader h2 {
+    font-size: 2.2rem;
+  }
+
+  /* Remove zig-zag on mobile */
+  .vmCard,
+  .vmCard:nth-child(even) {
+    flex-direction: column;
+    text-align: center;
+    margin: 0;
+    gap: 1.2rem;
+  }
+
+  .vmCard:nth-child(odd) {
+    margin: 0;
+  }
+
+  .vmIcon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.7rem;
+  }
+
+  .vmCard h3 {
+    font-size: 1.5rem;
+  }
+
+  .vmCard {
+    padding: 22px;
+  }
+}

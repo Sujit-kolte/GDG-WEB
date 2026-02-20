@@ -1,0 +1,113 @@
+/* AboutSection.module.css */
+.aboutUs {
+  margin-left: 8rem;
+  margin-right: 8rem;
+  padding: 4rem 2rem;
+  background: var(--about-bg);
+  position: relative;
+  border-radius: 2rem;
+}
+
+/* .aboutUs.values {
+     border-left: 5px solid var(--gdg-red);
+} */
+.sectionContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.aboutContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.textSection {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.textSection.animate {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+}
+
+.textSection p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.imageSection {
+  opacity: 0;
+  transform: translateX(30px);
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.imageSection.animate {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+.imageSection img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 1rem;
+  transition: transform 0.3s ease;
+}
+
+/* Dark mode image fix - slightly brighten images */
+[data-theme="dark"] .imageSection img {
+  filter: brightness(0.95);
+}
+
+.imageSection img:hover {
+  transform: scale(1.05);
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .aboutContainer {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .textSection p {
+    font-size: 1rem;
+  }
+}

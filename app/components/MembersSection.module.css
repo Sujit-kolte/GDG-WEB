@@ -1,0 +1,197 @@
+/* --- Body & Container --- */
+
+.container {
+    max-width: 75rem; /* 1200px -> rem */
+    margin: 2.5rem auto; /* 40px -> rem */
+    padding: 1.25rem; /* 20px -> rem */
+}
+
+/* --- Section Header --- */
+.section-header {
+     margin-top: 3rem; 
+    text-align: center;
+    margin-bottom: 3.75rem; /* 60px */
+    background: var(--gradient-header);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));
+}
+
+
+.section-title {
+    font-family: 'Poppins', sans-serif;
+  font-size:3.5rem;
+    margin-bottom: 1.875rem; /* 30px */
+    margin: 0;
+color: var(--text-primary) !important;}
+
+/* --- Tier Label --- */
+.tier-label {
+    font-family: var(--font-tech);
+color: var(--text-primary) !important;    font-size: 1.8rem;
+    margin: 2.5rem 0 1.25rem;
+    text-align: center;
+    width: 100%;
+}
+
+.tier-label::after {
+    content: '';
+    display: block;
+    width: 3.125rem; /* 50px */
+    height: 0.25rem; /* 4px */
+    /* background: var(--gdg-blue); */
+    margin: 0.5rem auto;
+}
+
+/* --- Row Wrapper (Horizontal Scroll) --- */
+.row-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1.5625rem; /* 25px */
+    padding: 1.25rem 0.625rem 2.5rem; /* 20px 10px 40px -> rem */
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    justify-content: center;
+}
+
+.row-wrapper.overflow {
+    justify-content: flex-start;
+}
+
+/* Scrollbar */
+.row-wrapper::-webkit-scrollbar { height: 0.375rem; }
+.row-wrapper::-webkit-scrollbar-thumb { background: #ccc; border-radius: 0.625rem; }
+
+/* --- Member Card --- */
+.member-card {
+    flex: 0 0 auto;
+    width: 14.375rem; /* 230px */
+    background: var(--bg-card);
+    border: 0.09375rem solid var(--border-default); /* 1.5px */
+    border-radius: 0.75rem; /* 12px */
+    padding: 0.625rem 0.625rem 1.25rem; /* 10px 10px 20px */
+    text-align: center;
+    box-shadow: 0.375rem 0.375rem 0 rgba(0,0,0,0.05); /* 6px */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.member-card:hover {
+    transform: translateY(-0.625rem); /* -10px */
+    box-shadow: 0 0.9375rem 1.875rem rgba(0,0,0,0.15); /* 15px 30px */
+    border-color: var(--gdg-blue);
+}
+
+/* --- Image Box --- */
+.image-box {
+    width: 100%;
+    aspect-ratio: 1/1.1;
+    background: #f0f0f0;
+    border-radius: 0.375rem; /* 6px */
+    overflow: hidden;
+    margin-bottom: 0.9375rem; /* 15px */
+}
+
+.image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- Member Info --- */
+.info h3 {
+    margin: 0.3125rem 0; /* 5px */
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.info p {
+    margin: 0;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+/* --- Social Links --- */
+.social-links {
+    margin-top: 0.625rem; /* 10px */
+    display: flex;
+    justify-content: center;
+    gap: 0.9375rem; /* 15px */
+}
+
+.social-links a {
+    color: #333;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+}
+
+.social-links a:hover { color: var(--gdg-blue); }
+
+/* --- Group Card --- */
+.group-card {
+    background: white;
+    border: 0.09375rem solid #000;
+    border-radius: 1.25rem; /* 20px */
+    padding: 0.9375rem; /* 15px */
+    box-shadow: 0.625rem 0.625rem 0 rgba(0,0,0,0.05); /* 10px */
+    margin-bottom: 2.5rem; /* 40px */
+}
+
+.group-image {
+    width: 100%;
+    height: 28.125rem; /* 450px */
+    background: #eee;
+    border-radius: 0.75rem; /* 12px */
+    overflow: hidden;
+}
+
+.group-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.group-info {
+    text-align: center;
+    padding: 1.25rem 0; /* 20px */
+}
+
+.group-info h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.2rem;
+    margin: 0;
+    color: var(--gdg-blue);
+}
+
+/* --- Group Photo Container --- */
+.group-photo-container {
+    max-width: 62.5rem; /* 1000px */
+    height: auto;
+    margin: 0 auto 3.75rem; /* 60px */
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+    .member-card { width: 12.5rem; }
+    .group-image { height: 22rem; }
+}
+
+@media (max-width: 768px) {
+    .section-title { font-size: 2.2rem; }
+    .tier-label { font-size: 1.5rem; }
+    .member-card { width: 10.5rem; }
+    .group-image { height: 18rem; }
+}
+
+@media (max-width: 480px) {
+    .section-title { font-size: 1.6rem; }
+    .tier-label { font-size: 1.2rem; }
+    .member-card { width: 9rem; padding: 0.5rem; }
+    .group-image { height: 14rem; }
+    .row-wrapper { gap: 1rem; padding: 1rem; }
+}
+.event-photo img {
+    width: 15rem; /* 240px → 15rem */
+    height: 12.5rem; /* 200px → 12.5rem */
+    object-fit: cover;
+}

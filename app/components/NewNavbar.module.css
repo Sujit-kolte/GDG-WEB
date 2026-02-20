@@ -1,0 +1,183 @@
+/* Navbar.module.css */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 4.375rem; /* 14px 70px */
+ 
+  border-radius: 30px;
+  /* backdrop-filter: var(--backdrop-blur);
+  box-shadow: 0 4px 30px 30px var(--shadow-xs); */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition:
+    background 250ms ease,
+    box-shadow 250ms ease;
+    margin-top: 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  background-color: var(--navbar-bg);
+  border-radius: 20px;
+  box-shadow: 0 4px 30px 30px var(--shadow-xs);
+}
+
+.logo img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+.navLinks {
+  display: flex;
+  gap: 1.25rem; /* 20px */
+  align-items: center;
+  background-color: white;
+  border-radius: 20px;
+  transition:
+    background 250ms ease,
+    box-shadow 250ms ease;
+    margin-top: 10px;
+     box-shadow: 0 4px 30px 30px var(--shadow-xs);
+     padding: 8px;
+     max-width: auto;
+}
+.navLinks:hover{
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.navLinks a {
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: var(--font-tech);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.navLinks a:hover {
+  background: rgba(var(--gdg-blue-rgb), 0.08);
+  color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+
+.navSocials {
+  display: flex;
+  gap: 1rem; /* 16px */
+  padding:8px;
+  align-items: center;
+  background-color: white;
+  border-radius: 20px;
+  transition:
+    background 250ms ease,
+    box-shadow 250ms ease;
+    margin-top: 10px;
+     box-shadow: 0 4px 30px 30px var(--shadow-xs);
+
+}
+
+.navSocials a,
+.navSocials button {
+  width: 2.25rem; /* 36px */
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--bg-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+}
+
+.navSocials a:hover,
+.navSocials button:hover {
+  background: var(--accent-primary);
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.875rem 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .navLinks {
+    gap: 0.75rem;
+    order: 3;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .navLinks a {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .navSocials {
+    gap: 0.5rem;
+  }
+}
+/* Base link styles */
+.navLinks a {
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 1. Home - Blue */
+.navLinks a:nth-child(1).active {
+  color: #4285F4;
+  background: rgba(66, 133, 244, 0.15);
+}
+.navLinks a:nth-child(1):hover:not(.active) {
+  background: rgba(66, 133, 244, 0.08);
+}
+
+/* 2. Events - Red */
+.navLinks a:nth-child(2).active {
+  color: #EA4335;
+  background: rgba(234, 67, 53, 0.15);
+}
+.navLinks a:nth-child(2):hover:not(.active) {
+  background: rgba(234, 67, 53, 0.08);
+}
+
+/* 3. Members - Refined Amber/Yellow */
+/* We use a darker Amber (#F9AB00) instead of bright yellow for readability */
+.navLinks a:nth-child(3).active {
+  color: #F9AB00; 
+  background: rgba(249, 171, 0, 0.12);
+}
+.navLinks a:nth-child(3):hover:not(.active) {
+  background: rgba(249, 171, 0, 0.06);
+}
+
+/* 4. Code Snippets - Refined Google Green */
+/* Using a slightly deeper green (#1E8E3E) for better balance */
+.navLinks a:nth-child(4).active {
+  color: #1E8E3E;
+  background: rgba(30, 142, 62, 0.12);
+}
+.navLinks a:nth-child(4):hover:not(.active) {
+  background: rgba(30, 142, 62, 0.06);
+}
+/* Global active font weight */
+.navLinks a.active {
+  font-weight: 600;
+}

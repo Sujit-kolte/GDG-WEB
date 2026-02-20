@@ -1,0 +1,167 @@
+/* NOTE: Global CSS variables should live in `app/globals.css`. */
+
+/* ================= PAST EVENTS SECTION ================= */
+.pastEvents {
+    margin-top: 0;
+    padding: 3.75rem 0;  /* 60px → 3.75rem */
+    margin-left: 10rem;  /* will adjust in media query */
+}
+
+.pastEvents .pastEvent-header {
+   
+    text-align: center;
+    margin-bottom: 3.75rem; /* 60px */
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--gdg-blue) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));
+}
+
+.pastEvent-header .pastEvent-title {
+    font-size: 3.5rem;
+    margin-bottom: 1.875rem; /* 30px */
+}
+
+.pastEvent-header .pastEvent-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 3.75rem; /* 60px */
+}
+
+/* ================= TIMELINE ================= */
+#timeline {
+    position: relative;
+    margin-left: 7.5rem; /* 120px → 7.5rem */
+        background: linear-gradient(135deg, var(--text-primary) 0%, var(--gdg-blue) 100%);
+
+}
+
+#timeline::before {
+    content: "";
+    position: absolute;
+    left: 2.5rem; /* 40px → 2.5rem */
+    top: 0;
+    width: 0.25rem; /* 4px → 0.25rem */
+    height: 100%;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--gdg-blue) 100%);
+    border-radius: 0.25rem;
+}
+
+/* ================= YEAR CIRCLE ================= */
+.year-wrapper {
+    position: relative;
+    margin-bottom: 2.5rem; /* 40px */
+}
+
+.year {
+    width: 5.625rem;  /* 90px */
+    height: 5.625rem;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--gdg-blue) 100%);
+    color: #f3f3f7;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+}
+
+.year h4 {
+    font-size: 1.25rem; /* 20px → 1.25rem */
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: black;
+    font-size: 1.25rem; /* 20px → 1.25rem */
+    cursor: pointer;
+}
+
+/* ================= EVENT CONTAINER ================= */
+.event-container {
+    margin-left: 5rem; /* 80px → 5rem */
+    margin-bottom: 3.75rem; /* 60px */
+}
+
+.hidden { display: none; }
+
+/* ================= EVENT CARD ================= */
+.event-section {
+    width: 100%;
+    max-width: 50rem; /* 800px → 50rem */
+    min-height: 16.25rem; /* 260px → 16.25rem */
+    background: white;
+    border-radius: 1.625rem; /* 26px → 1.625rem */
+    padding: 2.5rem; /* 40px */
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1.125rem 2.8125rem rgba(0, 0, 0, 0.15); /* 0 18px 45px */
+}
+
+/* ================= EVENT INFO ================= */
+.event-info {
+    flex: 1.3;
+    padding-right: 2.5rem; /* 40px */
+    font-family: var(--font-main);
+}
+
+.event-info h3 {
+    font-size: 2rem; /* 32px → 2rem */
+    font-weight: 700;
+    margin-bottom: 0.875rem; /* 14px */
+    color: #000;
+    font-family: var(--font-heading);
+}
+
+.event-info h4 {
+    font-size: 1rem; /* 16px → 1rem */
+    opacity: 0.7;
+    margin-bottom: 0.75rem; /* 12px */
+    font-family: var(--font-heading);
+}
+
+.event-info p {
+    font-size: 1.0625rem; /* 17px → 1.0625rem */
+    line-height: 1.6;
+    color: #333;
+}
+
+/* ================= IMAGE SLIDER ================= */
+.event-photo {
+    max-width: 50rem; /* 800px */
+    display: flex;
+    gap: 1.875rem; /* 30px */
+    overflow-x: auto;
+    scrollbar-width: 20px;
+}
+
+.event-photo::-webkit-scrollbar {
+    display: none;
+}
+
+.event-photo img {
+    width: 15rem; /* 240px → 15rem */
+    height: 12.5rem; /* 200px → 12.5rem */
+    object-fit: cover;
+    border-radius: 0.875rem; /* 14px → 0.875rem */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.event-photo img:hover {
+    transform: scale(1.15);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+    #timeline { margin-left: 2.5rem; }
+    .event-container { margin-left: 2.5rem; }
+    .event-section { flex-direction: column; align-items: flex-start; }
+    .event-photo { width: 100%; margin-top: 1.25rem; }
+    .pastEvents { margin-left: 1rem; padding: 2rem 0; }
+    .pastEvent-header .pastEvent-title { font-size: 3rem; }
+}

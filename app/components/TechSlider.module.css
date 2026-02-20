@@ -1,0 +1,156 @@
+/* TechSlider.module.css */
+
+/* ================== TECH SLIDER SECTION ================== */
+.techSlider {
+  padding: 80px 10%;
+  background: var(--section-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Heading */
+.techHeader {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 50px;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+}
+
+/* Slider Track (Auto Scroll like extracted CSS) */
+.sliderTrack {
+  display: flex;
+  gap: 25px;
+  width: max-content;
+  padding: 1rem 0;
+
+  /* Auto scroll */
+  animation: techScroll 18s linear infinite;
+
+  /* Remove old scrollbar logic */
+  overflow: hidden;
+}
+
+/* Pause animation on hover */
+.techSlider:hover .sliderTrack {
+  animation-play-state: paused;
+}
+
+/* ================== CARD ================== */
+.techCard {
+  width: 330px;
+  height: 330px;
+  border-radius: 100%;
+  flex-shrink: 0;
+   background-color: white;
+  border: 3px solid var(--border-default);
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+}
+.techCard:nth-child(4n+1){border-color: var( --gdg-blue);}
+.techCard:nth-child(4n+2){border-color: var( --gdg-yellow);}
+.techCard:nth-child(4n+3){border-color: var( --gdg-red);}
+.techCard:nth-child(4n+4){border-color: var( --gdg-green);}
+/* Hover */
+.techCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+}
+
+.techCard:nth-child(4n+1):hover { border-color: var(--gdg-green); transform: scale(1.02); }
+.techCard:nth-child(4n+2):hover { border-color: var(--gdg-yellow); transform: scale(1.02); }
+.techCard:nth-child(4n+3):hover { border-color: var(--gdg-blue); transform: scale(1.02); }
+.techCard:nth-child(4n+4):hover { border-color: var(--gdg-yellow); transform: scale(1.02); }
+
+/* ================== IMAGE ================== */
+.techCardImg {
+  width: 60%;
+  height: 100px;
+  border-radius: 18px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto; /* centers the box inside card */
+}
+
+.techCardImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  display: block; /* removes inline spacing */
+  transition: transform 0.3s ease;
+}
+
+/* Image zoom on hover */
+.techCard:hover .techCardImg img {
+  transform: scale(1.08);
+}
+
+/* Dark mode image fix */
+[data-theme="dark"] .techCardImg img {
+  filter: brightness(0.95);
+}
+
+/* ================== TEXT ================== */
+.techCard h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+  color: var(--text-primary);
+}
+
+.techCard p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+/* ================== AUTO SCROLL KEYFRAMES ================== */
+@keyframes techScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 768px) {
+  .techSlider {
+    padding: 60px 6%;
+  }
+
+  .techHeader {
+    font-size: 2.2rem;
+  }
+
+  .techCard {
+    width: 240px;
+    padding: 16px;
+  }
+
+  .techCardImg {
+    height: 150px;
+  }
+
+  .techCard h3 {
+    font-size: 1.2rem;
+  }
+
+  .techCard p {
+    font-size: 0.9rem;
+  }
+}

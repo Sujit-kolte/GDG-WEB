@@ -1,0 +1,231 @@
+/* EventsSection.module.css */
+.currentEvents {
+  padding: 4rem 2rem;
+  background: var(--section-bg);
+  position: relative;
+}
+
+.currentEventsHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.currentEventsTitle {
+  font-size: 2.5rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-family: "Google Sans", sans-serif;
+}
+
+.currentEventsSubtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+.currentTimeline {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 18rem; /* 288px - fixed card width */
+  gap: 1rem;
+  padding: 2rem 10rem 2rem 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  background-image: radial-gradient(var(--border-light) 1px, transparent 1px);
+  background-size: 1.875rem 1.875rem;
+  background-attachment: local;
+}
+
+.currentTimeline::-webkit-scrollbar {
+  height: 6px;
+}
+
+.currentTimeline::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 10px;
+}
+
+.currentTimeline::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 10px;
+}
+
+.currentTimeline::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
+}
+
+/* Event Card */
+.eventDisplayCard {
+  background: var(--bg-card);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 32rem;
+  border-top: 0.375rem solid var(--gdg-blue);
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  font-family: "Google Sans", sans-serif;
+  scroll-snap-align: start;
+}
+
+.eventDisplayCard:hover {
+  transform: translateY(-0.3rem);
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.12);
+}
+
+.eventDisplayCard h1 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+  color: var(--text-primary);
+}
+
+.eventDisplayCard h2 {
+  font-size: 0.85rem;
+  background: var(--vision-icon-bg);
+  color: var(--vision-icon-color);
+  padding: 0.3rem 0.8rem;
+  border-radius: 1rem;
+  width: fit-content;
+  margin-bottom: 0.8rem;
+}
+
+.eventCategory {
+  font-size: 0.85rem !important;
+  background: var(--vision-icon-bg);
+  color: var(--vision-icon-color);
+  padding: 0.3rem 0.8rem;
+  border-radius: 1rem;
+  width: fit-content;
+  margin-bottom: 0.8rem;
+  text-shadow: none;
+}
+
+.eventDisplayCard p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0.3rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.eventDate,
+.eventLocation {
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+.imageGallery {
+  width: 100%;
+  height: 150px;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.galleryImg {
+  flex: 1;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+/* Dark mode image fix */
+[data-theme="dark"] .galleryImg {
+  filter: brightness(0.95);
+}
+
+.galleryImg:hover {
+  transform: scale(1.05);
+}
+
+.galleryImg.loaded {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.btnRegister {
+  margin-top: auto;
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  background: rgba(58, 64, 198, 0.1);
+  border-radius: 0.5rem;
+  display: inline-block;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.btnRegister:hover {
+  background: rgba(58, 64, 198, 0.2);
+  color: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+/* Messages */
+.loadingMessage,
+.errorMessage,
+.noEventsMessage {
+  grid-column: 1 / -1;
+  padding: 2rem;
+  text-align: center;
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  color: var(--text-secondary);
+}
+
+.errorMessage {
+  background: rgba(234, 67, 53, 0.1);
+  color: #ea4335;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .currentEvents {
+    padding: 2rem 1.5rem;
+  }
+
+  .currentEventsTitle {
+    font-size: 2rem;
+  }
+
+  .currentTimeline {
+    grid-auto-columns: 16rem;
+    padding: 1.5rem;
+    margin-left: 10rem;
+  }
+
+  .eventDisplayCard {
+    height: 28rem;
+    padding: 1rem;
+  }
+
+  .eventDisplayCard h1 {
+    font-size: 1rem;
+  }
+
+  .imageGallery {
+    height: 120px;
+    margin-bottom: 0.8rem;
+  }
+
+  .eventDisplayCard p {
+    font-size: 0.8rem;
+  }
+}

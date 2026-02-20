@@ -1,0 +1,26 @@
+/* ThemeSwitcher.module.css */
+.themeToggle {
+  width: 2.25rem; /* 36px */
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--bg-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+}
+
+.themeToggle:hover {
+  background: var(--accent-primary);
+  color: white;
+  transform: rotate(20deg) scale(1.1);
+}
+
+.themeToggle:disabled {
+  opacity: 0;
+  cursor: default;
+}
